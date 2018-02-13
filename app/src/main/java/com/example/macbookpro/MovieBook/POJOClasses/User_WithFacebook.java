@@ -4,15 +4,23 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
-public class User_WithFacebook implements Parcelable{
+public class User_WithFacebook implements Parcelable {
 
+    public static final Creator<User_WithFacebook> CREATOR = new Creator<User_WithFacebook>() {
+        @Override
+        public User_WithFacebook createFromParcel(Parcel in) {
+            return new User_WithFacebook(in);
+        }
+
+        @Override
+        public User_WithFacebook[] newArray(int size) {
+            return new User_WithFacebook[size];
+        }
+    };
     String name;
     String email_id;
     String id;
     String date_of_birth;
-
-
-
 
     public User_WithFacebook(String name, String email_id, String id, String date_of_birth) {
         this.name = name;
@@ -29,18 +37,6 @@ public class User_WithFacebook implements Parcelable{
         date_of_birth = in.readString();
 
     }
-
-    public static final Creator<User_WithFacebook> CREATOR = new Creator<User_WithFacebook>() {
-        @Override
-        public User_WithFacebook createFromParcel(Parcel in) {
-            return new User_WithFacebook(in);
-        }
-
-        @Override
-        public User_WithFacebook[] newArray(int size) {
-            return new User_WithFacebook[size];
-        }
-    };
 
     public String getName() {
         return name;

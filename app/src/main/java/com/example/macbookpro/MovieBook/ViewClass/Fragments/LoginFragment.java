@@ -16,14 +16,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.macbookpro.MovieBook.Presenter.MainPresenter;
 import com.example.macbookpro.MovieBook.MainActivity;
+import com.example.macbookpro.MovieBook.Presenter.MainPresenter;
 import com.example.macbookpro.likefacebook.R;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,7 +31,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +40,7 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
-public class LoginFragment extends Fragment{
+public class LoginFragment extends Fragment {
 
     @BindView(R.id.edittext_username)
     EditText username;
@@ -54,12 +53,10 @@ public class LoginFragment extends Fragment{
     @BindView(R.id.textview_signup)
     TextView signup;
     FirebaseAuth firebaseAuth;
-
-
-    private CallbackManager callbackManager;
-    private MainPresenter mainPresenter;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    private CallbackManager callbackManager;
+    private MainPresenter mainPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,7 +113,7 @@ public class LoginFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.login, container, false);
         ButterKnife.bind(this, view);
-        facebooklogin.setReadPermissions(new  String[]{"public_profile", "user_birthday", "email", "user_posts", "user_friends", "read_custom_friendlists"});
+        facebooklogin.setReadPermissions(new String[]{"public_profile", "user_birthday", "email", "user_posts", "user_friends", "read_custom_friendlists"});
         facebooklogin.setFragment(this);
         callbackManager = CallbackManager.Factory.create();
         return view;

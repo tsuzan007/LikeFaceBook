@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.example.macbookpro.MovieBook.Model.NetworkHelper.Movie;
 import com.example.macbookpro.MovieBook.POJOClasses.MessageEvent;
 import com.example.macbookpro.MovieBook.Presenter.MainPresenter;
@@ -27,7 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MyMoviefragment extends Fragment{
+public class MyMoviefragment extends Fragment {
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    int identifier;
     private RecyclerView recyclerView;
     private MyRecyclerViewAdapter adapter;
     private StaggeredGridLayoutManager stagManager;
@@ -35,8 +37,14 @@ public class MyMoviefragment extends Fragment{
     private List<Movie.ResultsBean> mylist = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
     private MainPresenter mainPresenter;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+
+    public int getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(int identifier) {
+        this.identifier = identifier;
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -53,9 +61,9 @@ public class MyMoviefragment extends Fragment{
         recyclerView = (RecyclerView) view.findViewById(R.id.myrecyclerview);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         linearLayoutManager = new LinearLayoutManager(getActivity());
-        sharedPreferences=getActivity().getSharedPreferences("userstatus",Context.MODE_PRIVATE);
-        editor=sharedPreferences.edit();
-        editor.putBoolean("userStatus",true);
+        sharedPreferences = getActivity().getSharedPreferences("userstatus", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putBoolean("userStatus", true);
         editor.commit();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -70,7 +78,7 @@ public class MyMoviefragment extends Fragment{
     @Override
     public void onStart() {
         super.onStart();
-        mainPresenter.onLoadPopularMovies();
+        mainPresenter.onLoadUpcomingMovies();
         EventBus.getDefault().register(this);
         adapter = new MyRecyclerViewAdapter(getActivity(), mylist);
         stagManager = new StaggeredGridLayoutManager(2, 1);
@@ -108,20 +116,30 @@ public class MyMoviefragment extends Fragment{
         // getHomeTimeline is an example endpoint.
 
         mylist.clear();
-        mainPresenter.onLoadPopularMovies();
+        switch (identifier) {
+            case 0:
+                mainPresenter.onLoadUpcomingMovies();
+                break;
+            case 1:
+                mainPresenter.onLoadNowPlayingMovies();
+                break;
+            default:
+                mainPresenter.onLoadUpcomingMovies();
+
+        }
         swipeRefreshLayout.setRefreshing(false);
         adapter.notifyDataSetChanged();
     }
 
     @Subscribe
     public void updateView(List<Movie.ResultsBean> upcomingMovies) {
-        for(Movie.ResultsBean r: upcomingMovies){
+        mylist.clear();
+        for (Movie.ResultsBean r : upcomingMovies) {
             mylist.add(r);
 
         }
         adapter.notifyDataSetChanged();
     }
-
 
 
 }

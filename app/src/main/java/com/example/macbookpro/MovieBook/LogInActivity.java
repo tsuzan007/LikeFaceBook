@@ -5,8 +5,6 @@ import android.app.Fragment;
 import android.os.Bundle;
 
 import com.example.macbookpro.likefacebook.R;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 
 public class LogInActivity extends Activity {

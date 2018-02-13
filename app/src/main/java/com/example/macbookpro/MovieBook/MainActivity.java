@@ -9,13 +9,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 
 import com.example.macbookpro.MovieBook.POJOClasses.MessageEvent;
 import com.example.macbookpro.MovieBook.POJOClasses.User_WithFacebook;
 import com.example.macbookpro.likefacebook.R;
 import com.facebook.login.LoginManager;
-
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -25,6 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
+    protected Intent intent;
     @BindView(R.id.app_toolbar)
     Toolbar toolbar;
     @BindView(R.id.drawer)
@@ -33,11 +35,10 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView;
     @BindView(R.id.change_layout)
     Button changelayoutbutton;
-    @BindView(R.id.logout)
-    Button logout;
+//    @BindView(R.id.logout)
+//    Button logout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private User_WithFacebook user_withFacebook;
-    protected Intent intent;
     private SharedPreferences sharedPreferences;
     private SharedPreferences userstatus;
     private SharedPreferences.Editor editor;
@@ -69,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         intent = getIntent();
         sharedPreferences = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-        userstatus=getSharedPreferences("userstatus",Context.MODE_PRIVATE);
+        userstatus = getSharedPreferences("userstatus", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        editor2=userstatus.edit();
+        editor2 = userstatus.edit();
         EventBus.getDefault().register(this);
 
 
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         navigationView.getMenu().getItem(0).setTitle(sharedPreferences.getString("name", "Name"));
         navigationView.getMenu().getItem(1).setTitle(sharedPreferences.getString("emailid", "email"));
         navigationView.getMenu().getItem(2).setTitle(sharedPreferences.getString("dob", "xx-xx-xxxx"));
+
 
 
     }
@@ -99,14 +101,14 @@ public class MainActivity extends AppCompatActivity {
         EventBus.getDefault().post(new MessageEvent("hello"));
     }
 
-    @OnClick(R.id.logout)
-    public void onlogoutButtonClicked(Button button) {
-        LoginManager.getInstance().logOut();
-        editor2.putBoolean("userStatus",false);
-        editor2.commit();
-        Intent intent = new Intent(this, LogInActivity.class);
-        startActivity(intent);
-    }
+//    @OnClick(R.id.logout)
+//    public void onlogoutButtonClicked(Button button) {
+//        LoginManager.getInstance().logOut();
+//        editor2.putBoolean("userStatus", false);
+//        editor2.commit();
+//        Intent intent = new Intent(this, LogInActivity.class);
+//        startActivity(intent);
+//    }
 
 
     @Override
@@ -128,6 +130,5 @@ public class MainActivity extends AppCompatActivity {
         navigationView.getMenu().getItem(2).setTitle(user_withFacebook.getDate_of_birth());
 
     }
-
 
 }

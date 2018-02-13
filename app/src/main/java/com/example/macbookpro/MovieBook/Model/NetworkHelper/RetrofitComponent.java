@@ -8,7 +8,4 @@ import dagger.Component;
 public interface RetrofitComponent {
     MyMovieApiClient getMovieApiClient();
 
-
-
-
 }

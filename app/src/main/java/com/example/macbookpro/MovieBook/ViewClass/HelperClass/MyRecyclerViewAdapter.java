@@ -16,10 +16,9 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 
-
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder> {
     Context context;
-   List<Movie.ResultsBean> list;
+    List<Movie.ResultsBean> list;
 
     public MyRecyclerViewAdapter(Context context, List<Movie.ResultsBean> list) {
 
@@ -43,11 +42,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         if (list.size() != 0) {
 
-                Picasso.with(context).load("https://image.tmdb.org/t/p/w500"+list.get(position).getPoster_path()).into(holder.imageView);
-                holder.textView.setText(list.get(position).getTitle());
-                holder.textView1.setText(list.get(position).getOverview());
-                holder.textView2.setText(list.get(position).getPopularity()+"");
-                holder.textView3.setText(list.get(position).getRelease_date()+"");
+            Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + list.get(position).getPoster_path()).into(holder.imageView);
+            holder.textView.setText(list.get(position).getTitle());
+            holder.textView1.setText(list.get(position).getOverview());
+            holder.textView2.setText(list.get(position).getPopularity() + "");
+            holder.textView3.setText(list.get(position).getRelease_date() + "");
 
 
         }

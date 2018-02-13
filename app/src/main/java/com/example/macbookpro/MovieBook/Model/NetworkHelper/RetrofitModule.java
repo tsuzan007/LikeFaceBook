@@ -11,14 +11,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class RetrofitModule {
     private String base_url = "https://api.themoviedb.org/3/movie/";
+
     @Provides
-    public MyMovieApiClient getMovieApiClient(Retrofit retrofit){
+    public MyMovieApiClient getMovieApiClient(Retrofit retrofit) {
         return retrofit.create(MyMovieApiClient.class);
     }
 
     @Provides
-    public Retrofit getRetrofit(OkHttpClient client, GsonConverterFactory gsonConverterFactory){
-        return   new Retrofit.Builder()
+    public Retrofit getRetrofit(OkHttpClient client, GsonConverterFactory gsonConverterFactory) {
+        return new Retrofit.Builder()
                 .baseUrl(base_url)
                 .addConverterFactory(gsonConverterFactory)
                 .client(client)
@@ -26,19 +27,19 @@ public class RetrofitModule {
     }
 
     @Provides
-    public OkHttpClient getOkHttpClient(HttpLoggingInterceptor httpLoggingInterceptor){
-        return  new OkHttpClient.Builder()
+    public OkHttpClient getOkHttpClient(HttpLoggingInterceptor httpLoggingInterceptor) {
+        return new OkHttpClient.Builder()
                 .addInterceptor(httpLoggingInterceptor)
                 .build();
     }
 
     @Provides
-    public GsonConverterFactory getGsonConverterFactory(){
+    public GsonConverterFactory getGsonConverterFactory() {
         return GsonConverterFactory.create();
     }
 
     @Provides
-    public HttpLoggingInterceptor getHttpLogginInterceptor(){
+    public HttpLoggingInterceptor getHttpLogginInterceptor() {
         return new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
     }
 

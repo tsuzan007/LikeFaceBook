@@ -1,34 +1,22 @@
 package com.example.macbookpro.MovieBook.Presenter;
 
-import com.example.macbookpro.MovieBook.Model.NetworkHelper.RetrofitCall;
 import com.example.macbookpro.MovieBook.Model.Model;
+import com.example.macbookpro.MovieBook.Model.NetworkHelper.RetrofitCall;
 import com.facebook.login.LoginResult;
 
 
 public class MainPresenter implements
-        MVPContracts.ViewPresenterContract,
-        MVPContracts.ModelPresenterContract,
-        MVPContracts.FeedsPresenterContract{
-
-
-
-
+        MVPContracts.ViewPresenterContract {
 
 
     private MVPContracts.RequestModel requestModel;
     private RetrofitCall retrofitCall;
 
 
-
     public MainPresenter() {
-
-        this.requestModel=new Model(this);
-        retrofitCall=new RetrofitCall();
-
+        this.requestModel = new Model();
+        retrofitCall = new RetrofitCall();
     }
-
-
-
 
 
     //when login is success, message onSuccess is called from the fragment
@@ -38,9 +26,7 @@ public class MainPresenter implements
     public void onSignupClicked() {
 
 
-
     }
-
 
 
     public void onSuccess(LoginResult loginResult) {
@@ -53,6 +39,19 @@ public class MainPresenter implements
     public void onLoadPopularMovies() {
         retrofitCall.onLoadPopularMovies();
 
+
+    }
+
+    @Override
+    public void onLoadUpcomingMovies() {
+        retrofitCall.onLoadUpcomingMovies();
+
+
+    }
+
+    @Override
+    public void onLoadNowPlayingMovies() {
+        retrofitCall.onLoadNowPlayingMovies();
 
     }
 

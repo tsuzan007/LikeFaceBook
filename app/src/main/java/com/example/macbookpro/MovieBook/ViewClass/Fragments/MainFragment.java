@@ -11,11 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.macbookpro.MovieBook.Presenter.MainPresenter;
 import com.example.macbookpro.likefacebook.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 
 
 public class MainFragment extends Fragment {
@@ -24,11 +24,13 @@ public class MainFragment extends Fragment {
     ViewPager viewPager;
     @BindView(R.id.myTablayout)
     TabLayout tabLayout;
+    MainPresenter mainPresenter;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainPresenter = new MainPresenter();
     }
 
     @Nullable
@@ -50,33 +52,68 @@ public class MainFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         MyFragmentAdapter myFragmentAdapter = new MyFragmentAdapter(getFragmentManager());
         viewPager.setAdapter(myFragmentAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        mainPresenter.onLoadUpcomingMovies();
+                        break;
+                    case 1:
+                        mainPresenter.onLoadNowPlayingMovies();
+                        break;
+                    default:
+                        mainPresenter.onLoadUpcomingMovies();
+
+                }
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
     }
 
-
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 
     public class MyFragmentAdapter extends FragmentPagerAdapter {
-        String[] fragmentname = {"Upcoming Movies","Now Playing","Popular Movies",""};
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return fragmentname[position];
-        }
+        String[] fragmentname = {"Upcoming Movies", "Now Playing"};
 
         public MyFragmentAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
+        public CharSequence getPageTitle(int position) {
+            return fragmentname[position];
+        }
+
+        @Override
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    Fragment friendFragment = new MyMoviefragment();
-                    return friendFragment;
+                    MyMoviefragment UpcomingFragment = new MyMoviefragment();
+                    UpcomingFragment.setIdentifier(position);
+                    return UpcomingFragment;
                 case 1:
-                    Fragment nowPlayingFragment = new NowPlayingFragment();
+                    MyMoviefragment nowPlayingFragment = new MyMoviefragment();
+                    nowPlayingFragment.setIdentifier(position);
                     return nowPlayingFragment;
                 default:
-                    return null;
+                    UpcomingFragment = new MyMoviefragment();
+                    UpcomingFragment.setIdentifier(position);
+                    return UpcomingFragment;
             }
 
         }
@@ -85,11 +122,5 @@ public class MainFragment extends Fragment {
         public int getCount() {
             return fragmentname.length;
         }
-    }
-
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 }

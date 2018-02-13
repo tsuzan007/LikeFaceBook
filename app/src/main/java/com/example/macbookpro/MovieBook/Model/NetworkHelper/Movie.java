@@ -3,7 +3,6 @@ package com.example.macbookpro.MovieBook.Model.NetworkHelper;
 import java.util.List;
 
 
-
 public class Movie {
 
 

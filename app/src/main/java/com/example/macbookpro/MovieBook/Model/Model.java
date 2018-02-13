@@ -7,18 +7,13 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 
-
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class Model implements MVPContracts.RequestModel{
-    private MVPContracts.ModelPresenterContract modelPresenterContract;
+public class Model implements MVPContracts.RequestModel {
 
-    public Model(MVPContracts.ModelPresenterContract modelPresenterContract) {
-        this.modelPresenterContract=modelPresenterContract;
-    }
 
     private static User_WithFacebook user_withFacebook;
 
@@ -104,7 +99,7 @@ public class Model implements MVPContracts.RequestModel{
 //                    }
 //                }
 //        ).executeAsync();
-  }
+    }
 
 
 }

@@ -1,7 +1,6 @@
 package com.example.macbookpro.MovieBook.POJOClasses;
 
 
-
 public class MessageEvent {
     String message;
 

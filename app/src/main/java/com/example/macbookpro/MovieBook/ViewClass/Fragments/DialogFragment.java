@@ -8,8 +8,6 @@ import android.os.Bundle;
 import com.example.macbookpro.likefacebook.R;
 
 
-
-
 public class DialogFragment extends android.app.DialogFragment {
 
     public static DialogFragment newInstance(int title) {

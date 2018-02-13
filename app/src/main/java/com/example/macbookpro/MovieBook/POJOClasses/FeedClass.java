@@ -4,26 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
-public class FeedClass implements Parcelable{
-    String story;
-    String created_time;
-    String id;
-    String Url;
-
-    public FeedClass(String story, String created_time, String id, String Url) {
-        this.story = story;
-        this.created_time = created_time;
-        this.id = id;
-        this.Url=Url;
-    }
-
-    protected FeedClass(Parcel in) {
-        story = in.readString();
-        created_time = in.readString();
-        id = in.readString();
-        Url = in.readString();
-    }
-
+public class FeedClass implements Parcelable {
     public static final Creator<FeedClass> CREATOR = new Creator<FeedClass>() {
         @Override
         public FeedClass createFromParcel(Parcel in) {
@@ -35,6 +16,24 @@ public class FeedClass implements Parcelable{
             return new FeedClass[size];
         }
     };
+    String story;
+    String created_time;
+    String id;
+    String Url;
+
+    public FeedClass(String story, String created_time, String id, String Url) {
+        this.story = story;
+        this.created_time = created_time;
+        this.id = id;
+        this.Url = Url;
+    }
+
+    protected FeedClass(Parcel in) {
+        story = in.readString();
+        created_time = in.readString();
+        id = in.readString();
+        Url = in.readString();
+    }
 
     public String getStory() {
         return story;
@@ -59,6 +58,7 @@ public class FeedClass implements Parcelable{
     public void setId(String id) {
         this.id = id;
     }
+
     public String getUrl() {
         return Url;
     }
