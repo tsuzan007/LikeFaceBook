@@ -64,16 +64,14 @@ public class LoginFragment extends Fragment {
         mainPresenter = new MainPresenter();
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(getActivity());
-//        firebaseAuth=FirebaseAuth.getInstance();
-//        FirebaseCrash.report(new Exception("My first Android non-fatal error"));
-//        FirebaseCrash.log("MainActivity started");
+        firebaseAuth=FirebaseAuth.getInstance();
 
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        // FirebaseUser currentUser=firebaseAuth.getCurrentUser();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         sharedPreferences = getActivity().getSharedPreferences("userstatus", MODE_PRIVATE);
         if (sharedPreferences.getBoolean("userStatus", false)) {
             Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -145,44 +143,39 @@ public class LoginFragment extends Fragment {
                 }
             });
 
-
-        } else if (view.getId() == R.id.button_signin) {
-            String name = username.getText().toString();
-            if (!TextUtils.isEmpty(name)) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra("username", name);
-                startActivityForResult(intent, 1);
-
-            } else {
-                DialogFragment dialogFragment = new DialogFragment();
-                dialogFragment.show(getFragmentManager(), "message dialog");
-            }
-
-
-        }
+       }
     }
 
     @OnClick(R.id.button_signin)
     public void onSignInClicked(View view) {
-        firebaseAuth.signInWithEmailAndPassword("tsuzan007@mykitab.com", "Hello123")
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("...", "signInWithEmail:success");
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                            // updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("...", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(getActivity(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+        try{
+        String user=username.getText().toString();
+        String passwrd=password.getText().toString();
+            firebaseAuth.signInWithEmailAndPassword(user, passwrd)
+                    .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("...", "signInWithEmail:success");
+                                FirebaseUser user = firebaseAuth.getCurrentUser();
+                                Intent intent = new Intent(getActivity(), MainActivity.class);
+                                intent.putExtra("username", username.getText().toString());
+                                startActivityForResult(intent, 1);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("...", "signInWithEmail:failure", task.getException());
+                                Toast.makeText(getActivity(), "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+
+                            }
 
                         }
-
-                    }
-                });
+                    });
+        }
+        catch (IllegalArgumentException i){
+            Toast.makeText(getActivity(),"Invalid Input",Toast.LENGTH_LONG).show();
+        }
 
 
     }
@@ -193,26 +186,27 @@ public class LoginFragment extends Fragment {
         get userid, name, email address from user and pass it to the function
          */
         mainPresenter.onSignupClicked();
-        firebaseAuth.createUserWithEmailAndPassword("tsuzan007@mykitab.com", "Hello123")
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("...", "createUserWithEmail:success");
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                            //updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("...", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(getActivity(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            //  updateUI(null);
-                        }
-
-
-                    }
-                });
+        Toast.makeText(getActivity(),"SignUp mode is in development. We will get back to you shortly",Toast.LENGTH_LONG).show();
+//        firebaseAuth.createUserWithEmailAndPassword("tsuzan007@mykitab.com", "Hello123")
+//                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            // Sign in success, update UI with the signed-in user's information
+//                            Log.d("...", "createUserWithEmail:success");
+//                            FirebaseUser user = firebaseAuth.getCurrentUser();
+//                            //updateUI(user);
+//                        } else {
+//                            // If sign in fails, display a message to the user.
+//                            Log.w("...", "createUserWithEmail:failure", task.getException());
+//                            Toast.makeText(getActivity(), "Authentication failed.",
+//                                    Toast.LENGTH_SHORT).show();
+//                            //  updateUI(null);
+//                        }
+//
+//
+//                    }
+//                });
     }
 
     @Override
@@ -220,6 +214,7 @@ public class LoginFragment extends Fragment {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 
 
 }

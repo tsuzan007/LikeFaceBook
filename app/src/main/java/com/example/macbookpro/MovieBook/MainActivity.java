@@ -12,9 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.macbookpro.MovieBook.POJOClasses.MessageEvent;
 import com.example.macbookpro.MovieBook.POJOClasses.User_WithFacebook;
+import com.example.macbookpro.MovieBook.Presenter.MainPresenter;
 import com.example.macbookpro.likefacebook.R;
 import com.facebook.login.LoginManager;
 
@@ -33,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     @BindView(R.id.navigation_view)
     NavigationView navigationView;
-    @BindView(R.id.change_layout)
-    Button changelayoutbutton;
+//    @BindView(R.id.change_layout)
+//    Button changelayoutbutton;
 //    @BindView(R.id.logout)
 //    Button logout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -96,19 +98,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.change_layout)
-    public void changelayoutclicked(Button button) {
-        EventBus.getDefault().post(new MessageEvent("hello"));
-    }
-
-//    @OnClick(R.id.logout)
-//    public void onlogoutButtonClicked(Button button) {
-//        LoginManager.getInstance().logOut();
-//        editor2.putBoolean("userStatus", false);
-//        editor2.commit();
-//        Intent intent = new Intent(this, LogInActivity.class);
-//        startActivity(intent);
+//    @OnClick(R.id.change_layout)
+//    public void changelayoutclicked(Button button) {
+//        EventBus.getDefault().post(new MessageEvent("hello"));
 //    }
+
+    @OnClick(R.id.logout)
+    public void onlogoutButtonClicked(Button button) {
+        if(LoginManager.getInstance()!=null){
+            LoginManager.getInstance().logOut();
+            editor2.putBoolean("userStatus", false);
+            editor2.commit();
+            Intent intent = new Intent(this, LogInActivity.class);
+            startActivity(intent);
+        }else{
+            Toast.makeText(MainActivity.this,"Log out Successful",Toast.LENGTH_LONG).show();
+        }
+
+    }
 
 
     @Override

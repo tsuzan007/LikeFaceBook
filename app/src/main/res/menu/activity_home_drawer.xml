@@ -3,7 +3,7 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/user"
             android:icon="@drawable/ic_lock_black_24dp"
 
             android:title="Import" />
@@ -13,11 +13,11 @@
             android:title="Gallery" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_email_black_24dp"
+            android:icon="@drawable/birthday"
             android:title="Slideshow" />
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/birthday"
+            android:icon="@drawable/com_facebook_tooltip_black_background"
             android:title="Tools" />
     </group>
 

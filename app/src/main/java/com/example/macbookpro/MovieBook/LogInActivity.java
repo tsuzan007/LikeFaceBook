@@ -11,6 +11,8 @@ public class LogInActivity extends Activity {
     protected Fragment loginfragment;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
