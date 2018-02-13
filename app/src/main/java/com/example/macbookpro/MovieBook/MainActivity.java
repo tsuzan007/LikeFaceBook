@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView;
 //    @BindView(R.id.change_layout)
 //    Button changelayoutbutton;
-//    @BindView(R.id.logout)
-//    Button logout;
+    @BindView(R.id.logout)
+    Button logout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private User_WithFacebook user_withFacebook;
     private SharedPreferences sharedPreferences;
@@ -109,8 +109,7 @@ public class MainActivity extends AppCompatActivity {
             LoginManager.getInstance().logOut();
             editor2.putBoolean("userStatus", false);
             editor2.commit();
-            Intent intent = new Intent(this, LogInActivity.class);
-            startActivity(intent);
+            finish();
         }else{
             Toast.makeText(MainActivity.this,"Log out Successful",Toast.LENGTH_LONG).show();
         }

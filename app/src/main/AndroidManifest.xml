@@ -48,7 +48,6 @@
         </activity>
         <activity
             android:name="com.example.macbookpro.MovieBook.LogInActivity"
-            android:noHistory="true"
             android:windowSoftInputMode="adjustUnspecified">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
