@@ -81,4 +81,25 @@ public class RetrofitCall implements RetrofitModelOps {
         });
 
     }
+
+    @Override
+    public void showdetails(int movieid) {
+        Call<MovieDetail> call = myMovieApiClient.getMovieDetail(movieid,"1c9be957b6ec20365e7917f29f3ebdc7");
+        call.enqueue(new Callback<MovieDetail>() {
+            @Override
+            public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {
+                MovieDetail movieDetail = response.body();
+                EventBus.getDefault().post(movieDetail);
+            }
+
+            @Override
+            public void onFailure(Call<MovieDetail> call, Throwable t) {
+                Log.e(".......", "message");
+
+
+            }
+        });
+
+    }
+
 }

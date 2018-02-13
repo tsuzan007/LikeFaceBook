@@ -1,6 +1,7 @@
 package com.example.macbookpro.MovieBook.ViewClass.HelperClass;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.macbookpro.MovieBook.Model.NetworkHelper.Movie;
+import com.example.macbookpro.MovieBook.MovieDetailActivity;
+import com.example.macbookpro.MovieBook.Presenter.RecyclerViewPresenter;
 import com.example.macbookpro.likefacebook.R;
 import com.squareup.picasso.Picasso;
 
@@ -19,11 +22,13 @@ import java.util.List;
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder> {
     Context context;
     List<Movie.ResultsBean> list;
+    RecyclerViewPresenter recyclerViewPresenter=new RecyclerViewPresenter();;
 
     public MyRecyclerViewAdapter(Context context, List<Movie.ResultsBean> list) {
 
         this.context = context;
         this.list = list;
+
     }
 
     @Override
@@ -47,8 +52,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             holder.textView1.setText(list.get(position).getOverview());
             holder.textView2.setText(list.get(position).getPopularity() + "");
             holder.textView3.setText(list.get(position).getRelease_date() + "");
-
-
         }
 
     }
@@ -68,7 +71,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         ImageView imageView;
 
 
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(final View itemView) {
             super(itemView);
             cardView = (CardView) itemView.findViewById(R.id.card_view);
             textView = (TextView) itemView.findViewById(R.id.title);
@@ -76,6 +79,15 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             textView2 = (TextView) itemView.findViewById(R.id.popularityNo);
             textView3 = (TextView) itemView.findViewById(R.id.releasedateValue);
             imageView = (ImageView) itemView.findViewById(R.id.imageView3);
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    recyclerViewPresenter.onItemClicked(list.get(getPosition()).getId());
+                    Intent  intent=new Intent(context, MovieDetailActivity.class);
+                    context.startActivity(intent);
+
+                }
+            });
         }
     }
 }

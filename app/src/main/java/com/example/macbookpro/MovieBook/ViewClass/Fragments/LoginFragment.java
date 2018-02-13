@@ -3,6 +3,7 @@ package com.example.macbookpro.MovieBook.ViewClass.Fragments;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -31,10 +32,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.Subject;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -83,6 +91,20 @@ public class LoginFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        RxTextView.textChanges(username).subscribe(new Consumer<CharSequence>() {
+            @Override
+            public void accept(CharSequence charSequence) throws Exception {
+                if(charSequence.toString().contains("@moviebook.com")|| charSequence.toString().equals("")){
+                    username.getBackground().clearColorFilter();
+                }
+                else{
+                    username.getBackground().setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.SRC);
+
+
+                }
+            }
+        });
+
     }
 
 

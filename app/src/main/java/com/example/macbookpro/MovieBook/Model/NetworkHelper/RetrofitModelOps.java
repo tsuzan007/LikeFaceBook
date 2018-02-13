@@ -7,4 +7,6 @@ public interface RetrofitModelOps {
     void onLoadUpcomingMovies();
 
     void onLoadNowPlayingMovies();
+
+    void showdetails(int movieid);
 }
