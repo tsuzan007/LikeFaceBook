@@ -1,6 +1,9 @@
 package com.example.macbookpro.MovieBook.Model.NetworkHelper;
 
+import android.content.res.Resources;
 import android.util.Log;
+
+import com.example.macbookpro.likefacebook.R;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -25,7 +28,7 @@ public class RetrofitCall implements RetrofitModelOps {
     }
 
     public void onLoadPopularMovies() {
-        Call<Movie> call = myMovieApiClient.getData("1c9be957b6ec20365e7917f29f3ebdc7");
+        Call<Movie> call = myMovieApiClient.getData(Resources.getSystem().getString(R.string.Apikey));
         call.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
@@ -35,7 +38,7 @@ public class RetrofitCall implements RetrofitModelOps {
 
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
-                Log.e(".......", "message");
+                Log.e(".......", t.getMessage().toString());
 
 
             }
@@ -44,7 +47,7 @@ public class RetrofitCall implements RetrofitModelOps {
 
     @Override
     public void onLoadUpcomingMovies() {
-        Call<Movie> call = myMovieApiClient.getUpcomingData("1c9be957b6ec20365e7917f29f3ebdc7");
+        Call<Movie> call = myMovieApiClient.getUpcomingData(Resources.getSystem().getString(R.string.Apikey));
         call.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
@@ -54,7 +57,7 @@ public class RetrofitCall implements RetrofitModelOps {
 
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
-                Log.e(".......", "message");
+                Log.e(".......", t.getMessage().toString());
 
 
             }
@@ -64,7 +67,7 @@ public class RetrofitCall implements RetrofitModelOps {
 
     @Override
     public void onLoadNowPlayingMovies() {
-        Call<Movie> call = myMovieApiClient.getNowPlayingData("1c9be957b6ec20365e7917f29f3ebdc7");
+        Call<Movie> call = myMovieApiClient.getNowPlayingData(Resources.getSystem().getString(R.string.Apikey));
         call.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
@@ -74,7 +77,7 @@ public class RetrofitCall implements RetrofitModelOps {
 
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
-                Log.e(".......", "message");
+                Log.e(".......", t.getMessage().toString());
 
 
             }
@@ -84,7 +87,7 @@ public class RetrofitCall implements RetrofitModelOps {
 
     @Override
     public void showdetails(int movieid) {
-        Call<MovieDetail> call = myMovieApiClient.getMovieDetail(movieid,"1c9be957b6ec20365e7917f29f3ebdc7");
+        Call<MovieDetail> call = myMovieApiClient.getMovieDetail(movieid,Resources.getSystem().getString(R.string.Apikey));
         call.enqueue(new Callback<MovieDetail>() {
             @Override
             public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {
@@ -94,7 +97,7 @@ public class RetrofitCall implements RetrofitModelOps {
 
             @Override
             public void onFailure(Call<MovieDetail> call, Throwable t) {
-                Log.e(".......", "message");
+                Log.e(".......", t.getMessage().toString());
 
 
             }
