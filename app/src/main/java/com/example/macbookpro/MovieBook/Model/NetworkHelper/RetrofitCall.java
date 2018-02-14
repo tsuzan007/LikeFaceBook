@@ -3,12 +3,17 @@ package com.example.macbookpro.MovieBook.Model.NetworkHelper;
 import android.content.res.Resources;
 import android.util.Log;
 
+import com.example.macbookpro.MovieBook.MovieDetailActivity;
+import com.example.macbookpro.MovieBook.ViewClass.IConsumer;
 import com.example.macbookpro.likefacebook.R;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,6 +25,7 @@ public class RetrofitCall implements RetrofitModelOps {
 
     static RetrofitComponent retrofitComponent;
     public MyMovieApiClient myMovieApiClient;
+
 
     public RetrofitCall() {
         retrofitComponent = builder().build();
@@ -47,7 +53,7 @@ public class RetrofitCall implements RetrofitModelOps {
 
     @Override
     public void onLoadUpcomingMovies() {
-        Call<Movie> call = myMovieApiClient.getUpcomingData(Resources.getSystem().getString(R.string.Apikey));
+        Call<Movie> call = myMovieApiClient.getUpcomingData("1c9be957b6ec20365e7917f29f3ebdc7");
         call.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
@@ -67,7 +73,7 @@ public class RetrofitCall implements RetrofitModelOps {
 
     @Override
     public void onLoadNowPlayingMovies() {
-        Call<Movie> call = myMovieApiClient.getNowPlayingData(Resources.getSystem().getString(R.string.Apikey));
+        Call<Movie> call = myMovieApiClient.getNowPlayingData("1c9be957b6ec20365e7917f29f3ebdc7");
         call.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
@@ -87,7 +93,7 @@ public class RetrofitCall implements RetrofitModelOps {
 
     @Override
     public void showdetails(int movieid) {
-        Call<MovieDetail> call = myMovieApiClient.getMovieDetail(movieid,Resources.getSystem().getString(R.string.Apikey));
+        Call<MovieDetail> call = myMovieApiClient.getMovieDetail(movieid,"1c9be957b6ec20365e7917f29f3ebdc7");
         call.enqueue(new Callback<MovieDetail>() {
             @Override
             public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {

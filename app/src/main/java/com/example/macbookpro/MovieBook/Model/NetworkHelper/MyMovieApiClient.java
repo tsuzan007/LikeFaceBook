@@ -1,6 +1,7 @@
 package com.example.macbookpro.MovieBook.Model.NetworkHelper;
 
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -19,6 +20,6 @@ public interface MyMovieApiClient {
     Call<Movie> getNowPlayingData(@Query("api_key") String key);
 
     @GET("{movie_id}?")
-    Call<MovieDetail> getMovieDetail(@Path("movie_id") int movie_id,@Query("api_key") String key);
+    Call<MovieDetail> getMovieDetail(@Path("movie_id") int movie_id, @Query("api_key") String key);
 
 }
